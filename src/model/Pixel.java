@@ -29,11 +29,14 @@ public class Pixel {
     /** ARGB Pixel value */
     private int valueARGB;
     
+
+    
     /**
      * Pixel default constructor
      */
     public Pixel() {
 		valueARGB = 0;
+		
     }
     
 	/**
@@ -44,6 +47,7 @@ public class Pixel {
         this.valueARGB = valueARGB;
     }
     
+ 
     public Pixel(int rValue, int gValue, int bValue) {
     	setRed(rValue);
     	setGreen(gValue);
@@ -105,6 +109,8 @@ public class Pixel {
     	return ((valueARGB) & 0xff); 
     }
     
+    
+        
 	/**
 	 * Sets an attribute of the pixel
 	 * @param valueARGB the pixel's ARGB value
@@ -150,6 +156,7 @@ public class Pixel {
 	public void setBlue(int valueBlue) { 
 		valueARGB = (valueARGB & 0xffffff00) | ((valueBlue & 0xff));
 	}
+	
 
 	/**
 	 * Object's toString() method redefinition

@@ -52,6 +52,16 @@ public class ColorSlider extends JPanel implements ColorSliderArrowObserver {
 		add(new JLabel(text));
 		add(colorSliderArrow);
 	}
+	
+	ColorSlider(String text, float v, Image img) {
+		colorSliderArrow = new ColorSliderArrow(v, img, arrowWidth);
+		colorSliderArrow.addObserver(this);
+		
+		setLayout(new FlowLayout(FlowLayout.LEADING));
+		add(new JLabel(text));
+		add(colorSliderArrow);
+	}
+
 
 	public void update(Image img) {
 		repaint();
@@ -93,6 +103,7 @@ interface ColorSliderArrowObserver {
 class ColorSliderArrow extends JPanel implements MouseListener, MouseMotionListener {
 	private Image img;
 	private int value;
+	private float valueF;
 	private int imageWidth;
 	private int imageHeight;
 	private int arrowWidth;
@@ -101,6 +112,18 @@ class ColorSliderArrow extends JPanel implements MouseListener, MouseMotionListe
 	ColorSliderArrow(int value, Image img, int arrowWidth) {
 		this.img = img;
 		this.value = value;
+		imageWidth = img.getWidth(null);
+		imageHeight = img.getHeight(null);
+		this.arrowWidth = arrowWidth;
+		Dimension d = new Dimension(imageWidth + arrowWidth, imageHeight + getArrowHeight());
+		setSize(d);
+		setPreferredSize(d);
+		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
+	ColorSliderArrow(float value, Image img, int arrowWidth) {
+		this.img = img;
+		this.valueF = value;
 		imageWidth = img.getWidth(null);
 		imageHeight = img.getHeight(null);
 		this.arrowWidth = arrowWidth;
@@ -125,6 +148,14 @@ class ColorSliderArrow extends JPanel implements MouseListener, MouseMotionListe
 		value = d;
 	}
 	
+	
+	
+	public float getValueF() {
+		return valueF;
+	}
+	public void setValueF(float valueF) {
+		this.valueF = valueF;
+	}
 	/**
 	 * JPanel rendering method that displays all the shapes
 	 */

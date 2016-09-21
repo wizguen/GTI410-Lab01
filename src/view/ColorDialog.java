@@ -40,6 +40,7 @@ import model.Pixel;
 public class ColorDialog extends JDialog {
 	private JButton okButton;
 	private RGBColorMediator rgbMediator;
+	private RGBtoCMYK cmkMediator;
 	private ActionListener okActionListener;
 	private ColorDialogResult result;
 	
@@ -102,7 +103,8 @@ public class ColorDialog extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		ColorSlider csRed = new ColorSlider("R:", result.getPixel().getRed(), rgbMediator.getRedImage());
 		ColorSlider csGreen = new ColorSlider("G:", result.getPixel().getGreen(), rgbMediator.getGreenImage());
-		ColorSlider csBlue = new ColorSlider("B:", result.getPixel().getBlue(), rgbMediator.getBlueImage());
+		ColorSlider csBlue = new ColorSlider("B:",result.getPixel().getGreen() , rgbMediator.getRedImage());
+		//result.getPixel().getBlue()
 		
 		rgbMediator.setRedCS(csRed);
 		rgbMediator.setGreenCS(csGreen);
@@ -117,7 +119,33 @@ public class ColorDialog extends JDialog {
 	}
 	
 	private JPanel createCMYKPanel(ColorDialogResult result, int imageWidths) {	
+		cmkMediator = new RGBtoCMYK(result, imageWidths, 30);
+		
 		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		ColorSlider csCyan = new ColorSlider("C:", (int)(cmkMediator.getCyan() * imageWidths), cmkMediator.getCyanImage());
+		ColorSlider csMagenta = new ColorSlider("M:", (int)(cmkMediator.getMagenta() * imageWidths), cmkMediator.getMagentaImage());
+		ColorSlider csYellow = new ColorSlider("Y:", (int)(cmkMediator.getYellow() * imageWidths), cmkMediator.getYellowImage());
+		ColorSlider csBlack = new ColorSlider("K:", (int)(cmkMediator.getBlack() * imageWidths), cmkMediator.getBlackImage());
+		
+	/*	System.out.println("RED: " + result.getPixel().getRed());
+		
+		rgbMediator.setGreenCS(csMagenta);
+		rgbMediator.setBlueCS(csYellow);
+		rgbMediator.setBlueCS(csBlack);
+*/
+		cmkMediator.setCyanCS(csCyan);
+		cmkMediator.setMagentaCS(csMagenta);
+		cmkMediator.setYellowCS(csYellow);
+		cmkMediator.setBlackCS(csBlack);
+
+		
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(csCyan);
+		panel.add(csMagenta);
+		panel.add(csYellow);
+		panel.add(csBlack);
 		
 		return panel;
 	}
