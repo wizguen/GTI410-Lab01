@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import model.Pixel;
+import controller.YCbCrConversion;
 
 /**
  * <p>Title: ColorDialog</p>
@@ -41,6 +42,7 @@ public class ColorDialog extends JDialog {
 	private JButton okButton;
 	private RGBColorMediator rgbMediator;
 	private RGBtoCMYK cmkMediator;
+	private YCbCrColorMediator yCbCrMediator;
 	private ActionListener okActionListener;
 	private ColorDialogResult result;
 	
@@ -70,6 +72,9 @@ public class ColorDialog extends JDialog {
 		
 		JPanel hsvPanel = createHSVPanel(result, imageWidths);
 		tabbedPane.addTab("HSV", hsvPanel);
+		
+		JPanel YCbCrPanel = createYCbCrPanel(result, imageWidths);
+		tabbedPane.addTab("YCbCr", YCbCrPanel);
 		
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
@@ -154,6 +159,39 @@ public class ColorDialog extends JDialog {
 		JPanel panel = new JPanel();
 		
 		return panel;
+	}
+	
+	private JPanel createYCbCrPanel(ColorDialogResult result, int imageWidths) {
+		
+		yCbCrMediator = new YCbCrColorMediator(result, imageWidths, 30);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		int y = (int) YCbCrConversion.getYFromRGB(result.getPixel());
+		int cb = (int) YCbCrConversion.getCbFromRGB(result.getPixel());
+		int cr = (int) YCbCrConversion.getCrFromRGB(result.getPixel());
+		
+		System.out.println("Y: " + y);
+		System.out.println("Cb: " + cb);
+		System.out.println("Cr: " + cr);
+		
+		
+		ColorSlider csY = new ColorSlider("Y:", y, yCbCrMediator.getYImage());
+		ColorSlider csCb = new ColorSlider("Cb:", cb, yCbCrMediator.getCbImage());
+		ColorSlider csCr = new ColorSlider("Cr:",cr , yCbCrMediator.getCrImage());
+		
+		yCbCrMediator.setYCS(csY);
+		yCbCrMediator.setCbCS(csCb);
+		yCbCrMediator.setCrCS(csCr);
+		
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(csY);
+		panel.add(csCb);
+		panel.add(csCr);
+		
+		return panel;
+		
 	}
 }
 
