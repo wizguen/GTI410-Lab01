@@ -41,7 +41,7 @@ import controller.YCbCrConversion;
 public class ColorDialog extends JDialog {
 	private JButton okButton;
 	private RGBColorMediator rgbMediator;
-	private RGBtoCMYK cmkMediator;
+	private CMKYColorMediator cmkMediator;
 	private YCbCrColorMediator yCbCrMediator;
 	private ActionListener okActionListener;
 	private ColorDialogResult result;
@@ -124,7 +124,7 @@ public class ColorDialog extends JDialog {
 	}
 	
 	private JPanel createCMYKPanel(ColorDialogResult result, int imageWidths) {	
-		cmkMediator = new RGBtoCMYK(result, imageWidths, 30);
+		cmkMediator = new CMKYColorMediator(result, imageWidths, 30);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
