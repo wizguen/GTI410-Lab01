@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import model.Pixel;
+import controller.Converters;
 import controller.YCbCrConversion;
 
 /**
@@ -42,6 +43,7 @@ public class ColorDialog extends JDialog {
 	private JButton okButton;
 	private RGBColorMediator rgbMediator;
 	private CMKYColorMediator cmkMediator;
+	private HSVColorMediator hsvMediator ;
 	private YCbCrColorMediator yCbCrMediator;
 	private ActionListener okActionListener;
 	private ColorDialogResult result;
@@ -134,12 +136,6 @@ public class ColorDialog extends JDialog {
 		ColorSlider csYellow = new ColorSlider("Y:", (int)(cmkMediator.getYellow() * imageWidths), cmkMediator.getYellowImage());
 		ColorSlider csBlack = new ColorSlider("K:", (int)(cmkMediator.getBlack() * imageWidths), cmkMediator.getBlackImage());
 		
-	/*	System.out.println("RED: " + result.getPixel().getRed());
-		
-		rgbMediator.setGreenCS(csMagenta);
-		rgbMediator.setBlueCS(csYellow);
-		rgbMediator.setBlueCS(csBlack);
-*/
 		cmkMediator.setCyanCS(csCyan);
 		cmkMediator.setMagentaCS(csMagenta);
 		cmkMediator.setYellowCS(csYellow);
@@ -156,7 +152,29 @@ public class ColorDialog extends JDialog {
 	}
 	
 	private JPanel createHSVPanel(ColorDialogResult result, int imageWidths) {	
+		hsvMediator = new HSVColorMediator(result, imageWidths, 30);
+		
 		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		//On va chercher les valeurs RGB et on les converties en HSV.
+		Converters hsvValues = new Converters(
+										result.getPixel().getRed(), 
+										result.getPixel().getGreen(), 
+										result.getPixel().getBlue());
+		//Placer les valeurs hsv obtenues dans les CS.
+		ColorSlider csHue = new ColorSlider("H:", (int) hsvValues.hue, hsvMediator.getHueImage());
+		ColorSlider csSaturation = new ColorSlider("S:", (int) hsvValues.saturation, hsvMediator.getSaturationImage());
+		ColorSlider csValue = new ColorSlider("V:", (int) hsvValues.value, hsvMediator.getValueImage());
+
+		hsvMediator.setHueCS(csHue);
+		hsvMediator.setSaturationCS(csSaturation);
+		hsvMediator.setValueCS(csValue);
+		
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(csHue);
+		panel.add(csSaturation);
+		panel.add(csValue);
 		
 		return panel;
 	}
