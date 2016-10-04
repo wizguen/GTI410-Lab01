@@ -35,7 +35,7 @@ import controller.YCbCrConversion;
  * <p>Title: ColorDialog</p>
  * <p>Description: ... (JDialog)</p>
  * <p>Copyright: Copyright (c) 2003 Mohammed Elghaouat, Eric Paquette</p>
- * <p>Company: (ÉTS) - École de Technologie Supérieure</p>
+ * <p>Company: (ï¿½TS) - ï¿½cole de Technologie Supï¿½rieure</p>
  * @author unascribed
  * @version $Revision: 1.7 $
  */
@@ -110,8 +110,8 @@ public class ColorDialog extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		ColorSlider csRed = new ColorSlider("R:", result.getPixel().getRed(), rgbMediator.getRedImage());
 		ColorSlider csGreen = new ColorSlider("G:", result.getPixel().getGreen(), rgbMediator.getGreenImage());
-		ColorSlider csBlue = new ColorSlider("B:",result.getPixel().getGreen() , rgbMediator.getRedImage());
-		//result.getPixel().getBlue()
+		ColorSlider csBlue = new ColorSlider("B:",result.getPixel().getBlue() , rgbMediator.getBlueImage());
+		
 		
 		rgbMediator.setRedCS(csRed);
 		rgbMediator.setGreenCS(csGreen);
