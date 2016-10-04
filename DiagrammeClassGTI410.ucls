@@ -3,112 +3,158 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="view.ColorDialog" project="GTI410-Lab01" 
     file="/GTI410-Lab01/src/view/ColorDialog.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="574" y="35"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    <position height="127" width="134" x="451" y="36"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="view.ColorSlider" project="GTI410-Lab01" 
     file="/GTI410-Lab01/src/view/ColorSlider.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="599" y="320"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    <position height="134" width="123" x="507" y="489"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="3" language="java" name="view.CMKYColorMediator" project="GTI410-Lab01" 
     file="/GTI410-Lab01/src/view/CMKYColorMediator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="686" width="162" x="83" y="-220"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" 
+    <position height="171" width="167" x="149" y="278"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="view.YCbCrColorMediator" project="GTI410-Lab01" 
     file="/GTI410-Lab01/src/view/YCbCrColorMediator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="510" width="133" x="807" y="-246"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" 
+    <position height="137" width="146" x="495" y="243"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <association id="5">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="6" name="magentaCS"/>      
-      <multiplicity id="7" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="8">    
+  <class id="5" language="java" name="view.HSVColorMediator" project="GTI410-Lab01" 
+    file="/GTI410-Lab01/src/view/HSVColorMediator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="162" width="154" x="752" y="283"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="controller.YCbCrConversion" project="GTI410-Lab01" 
+    file="/GTI410-Lab01/src/controller/YCbCrConversion.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="103" width="107" x="294" y="123"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="controller.Converters" project="GTI410-Lab01" 
+    file="/GTI410-Lab01/src/controller/Converters.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="102" width="112" x="649" y="130"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" name="view.SliderObserver" project="GTI410-Lab01" 
+    file="/GTI410-Lab01/src/view/SliderObserver.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="90" width="103" x="346" y="345"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <association id="9">    
+    <bendpoint x="229" y="100"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="9" name="cmkMediator"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="10" name="cmkMediator"/>      
+      <multiplicity id="11" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="11">    
+  <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="yCbCrMediator"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+      <attribute id="13" name="yCbCrMediator"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="14">    
+  <dependency id="15">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="16">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="15" name="cbCS"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="17" name="cbCS"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="17">    
+  <dependency id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="21">    
+    <bendpoint x="829" y="560"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="22" name="hueCS"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <bendpoint x="230" y="561"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="18" name="blackCS"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
+      <attribute id="25" name="yellowCS"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="21" name="yCS"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
+  <dependency id="27">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="28">    
+    <bendpoint x="828" y="99"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="29" name="hsvMediator"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="23">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="24" name="cyanCS"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="27" name="crCS"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="29">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="30" name="yellowCS"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <realization id="31">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="32">    
+    <bendpoint x="752" y="406"/>    
+    <bendpoint x="453" y="407"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="33">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

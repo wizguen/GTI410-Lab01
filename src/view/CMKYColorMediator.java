@@ -115,8 +115,8 @@ public class CMKYColorMediator extends Object implements SliderObserver, Observe
 		Pixel p = new Pixel(px.getARGB());
 		
 		for (int i = 0; i<imagesWidth; ++i) {
-			p.setGreen((int)(((double)i / (double)imagesWidth)*255.0)); 
-			p.setBlue((int)(((double)i / (double)imagesWidth)*255.0));
+			p.setGreen((int) (((float)i / (float)imagesWidth)*255.0)); 
+			p.setBlue((int)(((float)i /(float) imagesWidth)*255.0));
 			p.setRed((int)(black*255.0));
 			
 			int rgb = p.getARGB();
@@ -133,8 +133,8 @@ public class CMKYColorMediator extends Object implements SliderObserver, Observe
 		Pixel p = new Pixel(px.getARGB());
 		for (int i = 0; i<imagesWidth; ++i) {
 			p.setGreen((int)(black*255.0)); 
-			p.setBlue((int)(((double)i / (double)imagesWidth)*255.0));
-			p.setRed((int)(((double)i / (double)imagesWidth)*255.0));
+			p.setBlue((int)(((float)i / (float)imagesWidth)*255.0));
+			p.setRed((int)(((float)i / (float)imagesWidth)*255.0));
 			
 			int rgb = p.getARGB();	
 			for (int j = 0; j<imagesHeight; ++j) {
@@ -149,9 +149,9 @@ public class CMKYColorMediator extends Object implements SliderObserver, Observe
 	public void computeYellowImage(float yellow, float black, Pixel px) {
 		Pixel p = new Pixel(px.getARGB());
 		for (int i = 0; i<imagesWidth; ++i) {	
-			p.setGreen((int)(((double)i / (double)imagesWidth)*255.0)); 
+			p.setGreen((int)(((float)i /(float) imagesWidth)*255.0)); 
 			p.setBlue((int)(black*255.0));
-			p.setRed((int)(((double)i / (double)imagesWidth)*255.0));
+			p.setRed((int)(((float)i / (float)imagesWidth)*255.0));
 			
 			int rgb = p.getARGB();
 			for (int j = 0; j<imagesHeight; ++j) {
@@ -278,9 +278,6 @@ public class CMKYColorMediator extends Object implements SliderObserver, Observe
 	}
 
 
-	/* (non-Javadoc)
-	 * @see model.ObserverIF#update()
-	 */
 	public void update() {
 		
 		Pixel p = cmykTorgb(cyan,magenta,yellow,black);
