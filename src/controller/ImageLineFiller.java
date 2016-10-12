@@ -14,13 +14,15 @@
 */
 
 package controller;
-import model.*;
-
 import java.awt.Point;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.List;
 import java.util.Stack;
+
+import model.ImageX;
+import model.Pixel;
+import model.Shape;
 
 /**
  * <p>Title: ImageLineFiller</p>
@@ -53,7 +55,7 @@ public class ImageLineFiller extends AbstractTransformer {
 	public int getID() { return ID_FLOODER; } 
 	
 	protected boolean mouseClicked(MouseEvent e){
-		List intersectedObjects = Selector.getDocumentObjectsAtLocation(e.getPoint());
+		List<?> intersectedObjects = Selector.getDocumentObjectsAtLocation(e.getPoint());
 		if (!intersectedObjects.isEmpty()) {
 			Shape shape = (Shape)intersectedObjects.get(0);
 			if (shape instanceof ImageX) {
@@ -72,6 +74,10 @@ public class ImageLineFiller extends AbstractTransformer {
 				if (0 <= ptTransformed.x && ptTransformed.x < currentImage.getImageWidth() &&
 				    0 <= ptTransformed.y && ptTransformed.y < currentImage.getImageHeight()) {
 					currentImage.beginPixelUpdate();
+					if(floodFill)
+					{
+						floodFill(ptTransformed);
+					}
 					horizontalLineFill(ptTransformed);
 					currentImage.endPixelUpdate();											 	
 					return true;
@@ -85,7 +91,7 @@ public class ImageLineFiller extends AbstractTransformer {
 	 * Horizontal line fill with specified color
 	 */
 	private void horizontalLineFill(Point ptClicked) {
-		Stack stack = new Stack();
+		Stack<Point> stack = new Stack<Point>();
 		stack.push(ptClicked);
 		while (!stack.empty()) {
 			Point current = (Point)stack.pop();
@@ -108,6 +114,47 @@ public class ImageLineFiller extends AbstractTransformer {
 		// TODO EP In this method, we could test if a pixel needs to be filled before
 		//      adding it to the stack (to reduce memory needs and increase efficiency).
 	}
+	
+	
+	public void floodFill(Point ptClicked)
+	{
+		
+		Stack<Point> stack = new Stack<Point>();
+		//Couleur initiale
+		Pixel couleurActuel = currentImage.getPixel(ptClicked.x, ptClicked.y);		
+		stack.push(ptClicked);		
+		
+		while (!stack.empty()) 
+		{
+			Point current = (Point)stack.pop();
+			//Pixel couleurSuivante = currentImage.getPixel(current.x, current.y);
+						
+			if(0 <= current.x && current.x < currentImage.getImageWidth() 
+					&& 0 <= current.y && current.y < currentImage.getImageHeight())
+			{
+				if (!this.currentImage.getPixel(current.x, current.y).equals(this.fillColor) &&
+					     this.currentImage.getPixel(current.x, current.y).equals(couleurActuel))
+					{
+						// Peindre le pixel
+						this.currentImage.setPixel(current.x, current.y, this.fillColor);
+						
+						// Regarder les voisins
+						Point nextLeft = new Point(current.x-1, current.y);
+						Point nextRight = new Point (current.x+1, current.y);
+						Point nextUp = new Point (current.x, current.y-1);
+						Point nextDown = new Point (current.x, current.y+1);
+						
+						stack.push(nextLeft);
+						stack.push(nextRight);
+						stack.push(nextUp);
+						stack.push(nextDown);
+					}
+			}			
+			
+		}			
+		
+	}
+	
 	
 	/**
 	 * @return
