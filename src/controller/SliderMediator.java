@@ -37,12 +37,12 @@ public class SliderMediator implements ChangeListener
 	private JSlider sSlider;
 	private JLabel vLabel;
 	private JSlider vSlider;
-	private ImageLineFiller filler;
+	private ImageColorFiller filler;
 	
 	public SliderMediator(JSlider hSlider, JLabel hLabel,
 						  JSlider sSlider, JLabel sLabel,
 						  JSlider vSlider, JLabel vLabel,
-						  ImageLineFiller filler) 
+						  ImageColorFiller imageColorFiller) 
 	{
 		this.hSlider = hSlider;
 		this.hLabel = hLabel;
@@ -50,13 +50,13 @@ public class SliderMediator implements ChangeListener
 		this.sLabel = sLabel;
 		this.vSlider = vSlider;
 		this.vLabel = vLabel;
-		this.filler = filler;
+		this.filler = imageColorFiller;
 		
-		hSlider.setValue(filler.getHueThreshold());
+		hSlider.setValue(imageColorFiller.getHueThreshold());
 		hLabel.setText(Integer.toString(hSlider.getValue()));
-		sSlider.setValue(filler.getSaturationThreshold());
+		sSlider.setValue(imageColorFiller.getSaturationThreshold());
 		sLabel.setText(Integer.toString(sSlider.getValue()));
-		vSlider.setValue(filler.getValueThreshold());
+		vSlider.setValue(imageColorFiller.getValueThreshold());
 		vLabel.setText(Integer.toString(vSlider.getValue()));
 		
 		hSlider.addChangeListener(this);

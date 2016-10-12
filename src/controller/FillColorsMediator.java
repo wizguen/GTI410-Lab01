@@ -42,15 +42,15 @@ public class FillColorsMediator {
 	private int size = 40;
 	private BufferedImage imgFill;
 	private BufferedImage imgBorder;
-	private ImageLineFiller filler;
+	private ImageColorFiller filler;
 	private JButton fillColorButton;
 	private JButton borderColorButton;
 	
-	public FillColorsMediator(ImageLineFiller filler, JButton fillColorButton, JButton borderColorButton) {
-		this.filler = filler;
+	public FillColorsMediator(ImageColorFiller imageColorFiller, JButton fillColorButton, JButton borderColorButton) {
+		this.filler = imageColorFiller;
 		
-		fill = filler.getFillColor();
-		border = filler.getBorderColor();
+		fill = imageColorFiller.getFillColor();
+		border = imageColorFiller.getBorderColor();
 		
 		this.fillColorButton = fillColorButton;
 		imgFill = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
