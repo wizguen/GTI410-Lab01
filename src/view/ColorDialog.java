@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import model.Pixel;
-import controller.Converters;
+import controller.HSVConversion;
 import controller.YCbCrConversion;
 
 /**
@@ -158,7 +158,7 @@ public class ColorDialog extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		//On va chercher les valeurs RGB et on les converties en HSV.
-		Converters hsvValues = new Converters(
+		HSVConversion hsvValues = new HSVConversion(
 										result.getPixel().getRed(), 
 										result.getPixel().getGreen(), 
 										result.getPixel().getBlue());

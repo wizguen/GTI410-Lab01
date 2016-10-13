@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.image.BufferedImage;
-import controller.Converters;
+import controller.HSVConversion;
 import model.ObserverIF;
 import model.Pixel;
 
@@ -47,7 +47,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 		result.addObserver(this);
 		
 		//Faire la convertion RBG a HSV pour obternir les valeurs en Hue, Saturation, Valeur
-		Converters hsvValues = new Converters(red, green, blue);
+		HSVConversion hsvValues = new HSVConversion(red, green, blue);
 		//Les valeurs de HSV converties
 		this.hue = hsvValues.hue;
 		this.saturation = hsvValues.saturation;
@@ -66,7 +66,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 	public void computeHueImage(float hue, float saturation, float value) {
 		
 		//On a les valeur HSV, on veut les valeurs RGB
-		Converters rbgValues = new Converters(hue, saturation, value);
+		HSVConversion rbgValues = new HSVConversion(hue, saturation, value);
 		this.red = rbgValues.red;
 		this.green = rbgValues.green;
 		this.blue = rbgValues.blue;
@@ -75,7 +75,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 		
 		for (int i = 0; i < imagesWidth; i++){
 			
-			Converters hsvValues = new Converters(
+			HSVConversion hsvValues = new HSVConversion(
 									(int)(((double)i / (double)imagesWidth)*255.0), 
 									rbgValues.saturation, rbgValues.value);
 			p.setRed(hsvValues.red);
@@ -98,7 +98,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 	
 	public void computeSaturationImage(float hue, float saturation, float value) {
 		//On a les valeur HSV, on veut les valeurs RGB
-		Converters rbgValues = new Converters(hue, saturation, value);
+		HSVConversion rbgValues = new HSVConversion(hue, saturation, value);
 		this.red = rbgValues.red;
 		this.green = rbgValues.green;
 		this.blue = rbgValues.blue;
@@ -107,7 +107,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 		
 		for (int i = 0; i < imagesWidth; i++){
 			
-			Converters hsvValues = new Converters(rbgValues.hue, 
+			HSVConversion hsvValues = new HSVConversion(rbgValues.hue, 
 								(int)(((double)i / (double)imagesWidth)*255.0), 
 								rbgValues.value);
 		
@@ -131,7 +131,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 	
 	public void computeValueImage(float hue, float saturation, float value) {
 		//On a les valeur HSV, on veut les valeurs RGB
-		Converters rbgValues = new Converters(hue, saturation, value);
+		HSVConversion rbgValues = new HSVConversion(hue, saturation, value);
 		this.red = rbgValues.red;
 		this.green = rbgValues.green;
 		this.blue = rbgValues.blue;
@@ -140,7 +140,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 		
 		for (int i = 0; i < imagesWidth; i++){
 			
-			Converters hsvValues = new Converters(rbgValues.hue, 
+			HSVConversion hsvValues = new HSVConversion(rbgValues.hue, 
 								rbgValues.saturation, 
 								(int)(((double)i / (double)imagesWidth)*255.0));
 		
@@ -175,7 +175,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 		blue = result.getPixel().getBlue();
 		
 		//Convertir pour obtenir valeur HSV
-		Converters hsvValues = new Converters(red, green, blue);
+		HSVConversion hsvValues = new HSVConversion(red, green, blue);
 		this.hue = hsvValues.hue;
 		this.saturation = hsvValues.saturation;
 		this.value = hsvValues.value;
@@ -222,7 +222,7 @@ public class HSVColorMediator extends Object implements SliderObserver, Observer
 			computeValueImage(hue, saturation, value);
 		}
 		
-		Converters rgbValues = new Converters(hue, saturation, value);
+		HSVConversion rgbValues = new HSVConversion(hue, saturation, value);
 		this.red = rgbValues.red;
 		this.green = rgbValues.green;
 		this.blue = rgbValues.blue;
