@@ -12,7 +12,6 @@ import model.Shape;
 
 public class ImageColorFiller extends AbstractTransformer {
 	private ImageX currentImage;
-	private int currentImageWidth;
 	private Pixel fillColor = new Pixel(0xFF00FFFF);
 	private Pixel borderColor = new Pixel(0xFFFFFF00);
 	private boolean floodFill = true;
@@ -38,7 +37,7 @@ public class ImageColorFiller extends AbstractTransformer {
 			Shape shape = (Shape)intersectedObjects.get(0);
 			if (shape instanceof ImageX) {
 				currentImage = (ImageX)shape;
-				currentImageWidth = currentImage.getImageWidth();
+				currentImage.getImageWidth();
 
 				Point pt = e.getPoint();
 				Point ptTransformed = new Point();
@@ -52,11 +51,14 @@ public class ImageColorFiller extends AbstractTransformer {
 				if (0 <= ptTransformed.x && ptTransformed.x < currentImage.getImageWidth() &&
 				    0 <= ptTransformed.y && ptTransformed.y < currentImage.getImageHeight()) {
 					currentImage.beginPixelUpdate();
-					if(floodFill)
+					
+					if(isFloodFill())
 					{
 						floodFill(ptTransformed);
 					}
-					horizontalLineFill(ptTransformed);
+					else
+						boundaryFill(ptTransformed);
+					
 					currentImage.endPixelUpdate();											 	
 					return true;
 				}
@@ -65,34 +67,6 @@ public class ImageColorFiller extends AbstractTransformer {
 		return false;
 	}
 
-	/**
-	 * Horizontal line fill with specified color
-	 */
-	private void horizontalLineFill(Point ptClicked) {
-		Stack<Point> stack = new Stack<Point>();
-		stack.push(ptClicked);
-		while (!stack.empty()) {
-			Point current = (Point)stack.pop();
-			if (0 <= current.x && current.x < currentImage.getImageWidth() &&
-				!currentImage.getPixel(current.x, current.y).equals(fillColor)) {
-				currentImage.setPixel(current.x, current.y, fillColor);
-				
-				// Next points to fill.
-				Point nextLeft = new Point(current.x-1, current.y);
-				Point nextRight = new Point(current.x+1, current.y);
-				stack.push(nextLeft);
-				stack.push(nextRight);
-			}
-		}
-		// TODO EP In this method, we are creating many new Point instances. 
-		//      We could try to reuse as many as possible to be more efficient.
-		// TODO EP In this method, we could be creating many Point instances. 
-		//      At some point we can run out of memory. We could create a new point
-		//      class that uses shorts to cut the memory use.
-		// TODO EP In this method, we could test if a pixel needs to be filled before
-		//      adding it to the stack (to reduce memory needs and increase efficiency).
-	}
-	
 	
 	public void floodFill(Point ptClicked)
 	{
@@ -111,12 +85,12 @@ public class ImageColorFiller extends AbstractTransformer {
 					&& 0 <= current.y && current.y < currentImage.getImageHeight())
 			{
 				if (!this.currentImage.getPixel(current.x, current.y).equals(this.fillColor) &&
-					     this.currentImage.getPixel(current.x, current.y).equals(couleurActuel))
+					     this.currentImage.getPixel(current.x, current.y).equals(couleurActuel) && estDansSeuil(current))
 					{
-						// Peindre le pixel
+						// peinturer
 						this.currentImage.setPixel(current.x, current.y, this.fillColor);
 						
-						// Regarder les voisins
+						// voir les voisins
 						Point nextLeft = new Point(current.x-1, current.y);
 						Point nextRight = new Point (current.x+1, current.y);
 						Point nextUp = new Point (current.x, current.y-1);
@@ -133,6 +107,74 @@ public class ImageColorFiller extends AbstractTransformer {
 		
 	}
 	
+	public void boundaryFill(Point ptClicked)
+	{
+		
+		Stack<Point> stack = new Stack<Point>();
+		currentImage.getPixel(ptClicked.x, ptClicked.y);		
+		stack.push(ptClicked);		
+		
+		System.out.println("Boudary fill ...");
+		while (!stack.empty()) 
+		{
+			Point current = (Point)stack.pop();
+			//Pixel couleurSuivante = currentImage.getPixel(current.x, current.y);
+						
+			if(0 <= current.x && current.x < currentImage.getImageWidth() 
+					&& 0 <= current.y && current.y < currentImage.getImageHeight())
+			{
+				//Si couleurActuel different du fillColor...
+				if (!this.currentImage.getPixel(current.x, current.y).equals(this.fillColor) &&
+						estDansSeuil(current))
+						
+					  //  !this.currentImage.getPixel(current.x, current.y).equals(this.borderColor))
+				{	
+					this.currentImage.setPixel(current.x, current.y, this.fillColor);
+					// Regarder les voisins
+					Point nextLeft = new Point(current.x-1, current.y);
+					Point nextRight = new Point (current.x+1, current.y);
+					Point nextUp = new Point (current.x, current.y-1);
+					Point nextDown = new Point (current.x, current.y+1);
+					
+					stack.push(nextLeft);
+					stack.push(nextRight);
+					stack.push(nextUp);
+					stack.push(nextDown);
+					//System.out.println("Iteration ...");
+				}
+			}			
+		}			
+	}
+    
+    private boolean estDansSeuil(Point pointActuel){
+    	
+		Pixel pixelActuel = this.currentImage.getPixel(pointActuel.x, pointActuel.y);
+		Pixel pixelBoundary = this.borderColor;
+		
+		//Valeur HSV du pixel actuel
+		HSVConversion hsvpixelActuel = new HSVConversion(pixelActuel.getRed(), pixelActuel.getGreen(), pixelActuel.getBlue());
+		float[] hsvActuel = {hsvpixelActuel.hue, hsvpixelActuel.saturation, hsvpixelActuel.value}; 
+		
+		//Valeur HSV du boundary
+		HSVConversion hsvpixelBoundary = new HSVConversion(pixelBoundary.getRed(), pixelBoundary.getGreen(), pixelBoundary.getBlue());
+		float[] hsvBoundary = {hsvpixelBoundary.hue, hsvpixelBoundary.saturation, hsvpixelBoundary.value}; 
+    	
+		//hsvActuel[0] = Hue Actuel				hsvBorder[0] = Hue Boundary
+		//hsvActuel[1] = Saturation Actuel		hsvBorder[1] = Saturation Boundary
+		//hsvActuel[2] = Valeur Actuel			hsvBorder[2] = Valeur Boundary
+		float hueDifference = hsvBoundary[0] - this.hueThreshold ;
+		float saturationDifference = hsvBoundary[1] - this.saturationThreshold ;
+		float valueDifference = hsvBoundary[2] - this.valueThreshold ;
+		
+		if ( hueDifference <= hsvActuel[0] && saturationDifference <= hsvActuel[1] && valueDifference <= hsvActuel[2] ){
+			//test
+			System.out.println("Faux");
+			return false;
+			}
+		//test
+		System.out.println("Vrai");
+		return true;
+		}
 	
 	/**
 	 * @return
