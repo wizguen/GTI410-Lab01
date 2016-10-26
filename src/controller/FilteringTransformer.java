@@ -31,8 +31,8 @@ import model.Shape;
  * @version $Revision: 1.6 $
  */
 public class FilteringTransformer extends AbstractTransformer{
-	Filter filter = new MeanFilter3x3(new PaddingZeroStrategy(), new ImageClampStrategy());
-	
+	//Filter filter = new MeanFilter3x3(new PaddingZeroStrategy(), new ImageClampStrategy());
+	GFilter3x3 filter = new GFilter3x3(new PaddingZeroStrategy(), new ImageClampStrategy());
 	/**
 	 * @param _coordinates
 	 * @param _value
@@ -41,6 +41,7 @@ public class FilteringTransformer extends AbstractTransformer{
 		System.out.println("[" + (_coordinates.getColumn() - 1) + "]["
                                    + (_coordinates.getRow() - 1) + "] = " 
                                    + _value);
+		filter.updateKernel( _coordinates, _value);
 	}
 		
 	/**
